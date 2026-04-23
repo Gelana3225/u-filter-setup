@@ -10,6 +10,18 @@ export default function Users() {
         getUsers();
     }, [])
 
+    const onDelete = (u) => {
+        if (!window.confirm("Are you sure you want to delete this user?")) {
+            return
+        }
+
+
+        axiosClient.delete(`/users/${u.id}`)
+            .then(() => {
+                getUsers()
+            })
+    }
+
     const getUsers = () => {
         setLoading(true)
         axiosClient.get('/users')
@@ -40,7 +52,15 @@ export default function Users() {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {loading && <tbody>
+                        <tr>
+                            <td colSpan="5" className="text-center">
+                                Loading...
+                            </td>
+                        </tr>
+                     </tbody>
+                    } 
+                    {!loading && <tbody>
                         {users.map(u => (
                             <tr>
                                 <td>{u.id}</td>
@@ -50,11 +70,12 @@ export default function Users() {
                                 <td>
                                     <Link className="btn-edit" to={'/users/'+u.id}>Edit</Link>
                                     &nbsp;
-                                    <button className="btn-delete">Delete</button>
+                                    <button onClick={ev => onDelete(u)} className="btn-delete">Delete</button>
                                 </td>
                             </tr>     
                         ))}
-                    </tbody>
+                     </tbody>
+                    }  
                 </table>
             </div>
         </div>
