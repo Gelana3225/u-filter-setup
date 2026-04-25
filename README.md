@@ -1,23 +1,51 @@
 # U Filter Setup
 
-Full-stack application with a **Laravel** API/backend and a **React** (Vite) frontend in `react/`.
+U Filter Setup is a completed full-stack web application developed with a **React frontend** and a **Laravel backend API**.  
+The frontend architecture is built around **React Hooks** and the **Context API** for scalable, centralized client-side state management.
 
-## Stack
+## Project Overview
 
-| Layer     | Technology                          |
-|----------|--------------------------------------|
-| Backend  | Laravel 13, PHP 8.3+                 |
-| API / DB | Laravel defaults (see `.env`)        |
-| Frontend | React 19, React Router 7, Vite 8     |
-| Styling  | Tailwind CSS 4 (Laravel Vite assets) |
+This project demonstrates a clean separation of concerns between:
 
-## Prerequisites
+- **Presentation and client state** in React
+- **Business logic and data access** in Laravel
+- **HTTP-based communication** between the frontend and backend layers
 
-- PHP 8.3+ and [Composer](https://getcomposer.org/)
-- Node.js 20+ (recommended) and npm
-- A database supported by Laravel (e.g. SQLite, MySQL, PostgreSQL)
+The result is a maintainable architecture suitable for real-world feature growth and team collaboration.
 
-## Backend (Laravel)
+## Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, React Router 7, Vite 8 |
+| State Management | React Hooks + Context API |
+| Backend | Laravel 13, PHP 8.3+ |
+| Tooling | npm, Composer |
+
+## Frontend Architecture (React)
+
+The frontend (`react/`) is implemented as a modern SPA with:
+
+- **React Hooks** (`useState`, `useEffect`, and custom hooks where applicable) to manage component logic
+- **Context API** to provide shared application state and actions across the component tree
+- **Route-based navigation** with React Router
+
+This combination reduces prop drilling, improves reusability, and keeps state transitions predictable.
+
+## Backend Architecture (Laravel)
+
+The backend is built using Laravel and is responsible for:
+
+- API endpoint handling
+- Request validation and business logic execution
+- Database operations and persistence
+- Authentication/session-related backend flows (where configured)
+
+Laravel provides the project with a structured, secure, and extensible server-side foundation.
+
+## Local Development Setup
+
+### 1) Backend (Laravel)
 
 From the repository root:
 
@@ -27,27 +55,16 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Configure your database in `.env`, then:
+Configure database values in `.env`, then run:
 
 ```bash
 php artisan migrate
 php artisan serve
 ```
 
-The app will typically be available at `http://127.0.0.1:8000`.
+Default backend URL: `http://127.0.0.1:8000`
 
-### Laravel front-end assets (Blade / Vite)
-
-For the default Laravel entry points (`resources/css/app.css`, `resources/js/app.js`):
-
-```bash
-npm install
-npm run dev
-```
-
-## Frontend (React SPA)
-
-The React app lives in `react/` and runs on port **3000** in dev.
+### 2) Frontend (React)
 
 ```bash
 cd react
@@ -55,20 +72,45 @@ npm install
 npm run dev
 ```
 
-- **Development:** `npm run dev` — Vite dev server  
-- **Production build:** `npm run build`  
-- **Lint:** `npm run lint`
+Default frontend URL: `http://localhost:3000`
 
-Point the React app at your Laravel API base URL as needed (e.g. `http://127.0.0.1:8000`) via your app’s configuration or environment variables.
+## Available Scripts
 
-## Tests (Laravel)
+### Root (Laravel asset pipeline)
+
+```bash
+npm install
+npm run dev
+```
+
+### React app (`react/`)
+
+```bash
+npm run dev
+npm run build
+npm run lint
+```
+
+## Testing
+
+Backend tests:
 
 ```bash
 php artisan test
-# or
+```
+
+or:
+
+```bash
 ./vendor/bin/pest
 ```
 
+## Status
+
+Development for this project is complete.  
+The current codebase reflects a full implementation using **React Hooks + Context API** on the frontend and **Laravel** on the backend.
+
 ## License
 
-This project inherits the MIT license from the Laravel application skeleton. See Laravel’s [license](https://opensource.org/licenses/MIT).
+This project inherits the MIT license from the Laravel application skeleton.  
+See [MIT License](https://opensource.org/licenses/MIT).
